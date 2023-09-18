@@ -1,0 +1,78 @@
+﻿@model OrgGoalsBCAndNetsuiteCrud.Models.MongoDB.BCAuthModel
+<title>Make Authorization Request</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
+
+    .container {
+        background-color: #fff;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .note {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .result {
+        margin-top: 20px;
+    }
+</style>
+<div class="container">
+    <h2>Make Authorization Request</h2>
+    <form action="/Auth/BCMakeAuthorizationRequest" method="post">
+        <label for="client_id">Client Id</label>
+        <input type="text" id="client_id" name="client_id" required>
+
+        <label for="secret_id">Secret Id</label>
+        <input type="text" id="secret_id" name="secret_id" required>
+
+        <br>
+        <br>
+        <span class="note"><strong>Note:</strong> For this getting access token kae sur you added this (https://localhost:44355/BussinessCentralAuth/BusinessCentralCallback) redirect URL to your Azure Active Directory</span>
+       
+        <input type="submit" value="Submit">
+    </form>
+
+    @if (Model != null && !string.IsNullOrEmpty(Model.access_token) && !string.IsNullOrEmpty(Model.refresh_token))
+    {
+        <div class="result">
+            <label for="access_token">Access Token</label>
+            <input type="text" id="access_token" name="access_token" value="@Model.access_token" readonly>
+
+            <label for="refresh_token">Refresh Token</label>
+            <input type="text" id="refresh_token" name="refresh_token" value="@Model.refresh_token" readonly>
+        </div>
+    }
+
+</div>
